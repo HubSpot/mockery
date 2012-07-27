@@ -7,7 +7,11 @@ A python mocking library for unittests
 Simple usage:
 
 ```python
-# All calls to urlopen will be validated against the original signature, a mock object will be returned
+import difflib
+from unittest import TestCase
+import urllib2
+
+from mocking_bird import MockingBirdMixin
 
 class MyCase(TestCase, MockingBirdMixin):
 
