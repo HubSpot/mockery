@@ -45,6 +45,17 @@ class MockingCase(TestCase, MockingBirdMixin):
         self.assertEqual(output, urllib2.urlopen('adfsa'))
         self.unstub(urllib2, 'urlopen')
 
+        self.stub(ExampleClass, 'example_args').ret("yes!!")
+        self.stub(ExampleClass, 'example_kwargs').ret("yes!!")
+        self.stub(ExampleClass, 'example_full').ret("yes!!")
+        self.stub(ExampleClass, 'example_static').ret("yes!!")
+        self.stub(ExampleClass, 'example_instance').ret("yes!!")
+        self.assertEqual("yes!!", ExampleClass.example_args('one', 'two'))
+        self.assertEqual("yes!!", ExampleClass.example_kwargs(one='one', two='two'))
+        self.assertEqual("yes!!", ExampleClass.example_full('a', 'b', 'c', one='one'))
+        self.assertEqual("yes!!", ExampleClass.example_static('a', 'b'))
+        self.assertEqual("yes!!", ExampleClass().example_instance('a', 'b'))
+
     def test_stub_obj_methods(self):
         # Make sure stubbing works on object methods, not just module level functions
         diff = difflib.HtmlDiff(tabsize=13)
@@ -85,4 +96,25 @@ class MockingCase(TestCase, MockingBirdMixin):
 
         o = self.new_mock_object()
         self.assertTrue(isinstance(o, LaxObject))        
-    
+
+class ExampleClass(object):    
+    @classmethod
+    def example_args(cls, *args):
+        return 'example'
+
+    @classmethod
+    def example_kwargs(cls, **kwargs):
+        return 'example'
+
+    @classmethod
+    def example_full(cls, a, b='yes', *args, **kwargs):
+        return 'example'
+
+
+    @staticmethod
+    def example_static(a, b):
+        return 'example'
+
+
+    def example_instance(self, a, b):
+        return 'example'

@@ -77,12 +77,16 @@ class MockingBirdMixin(object):
         return mock_obj
 
     def cleanup_mocks(self):
+        if self._mocks_storage == None:
+            return
         for storage in self._mocks_storage.values():
             # restore the original method
             setattr(storage.target_obj, storage.method_name, storage.org_method)
         self._mocks_storage = {}
 
     def verify_mocks(self):
+        if self._mocks_storage == None:
+            return
         for storage in self._mocks_storage.values():
             storage.lax_mock.verify_calls()            
         
@@ -208,7 +212,7 @@ class LaxMock(object):
                             (max_positional_count, len(actual_args), str(self.obj), self.method_name))
 
         # Validate keyword arguments
-        if variable_keyword_args == None:
+        if variable_keyword_args != None:
             return True
         for key in actual_kwargs.keys():
             if key not in org_args:
@@ -240,7 +244,7 @@ class LaxMock(object):
                 self._verify_actual_matches_expected(actual, expected, actual_args, actual_kwargs, msg)
 
     def _verify_actual_matches_expected(self, actual, expected, actual_args, actual_kwargs, msg):
-        if type(expected) is IgnoreArg:
+        if type(expected) is IgnoreArg or (expected and getattr(expected, '__name__', '') == 'IgnoreArg'):
             return
         elif type(expected) is type or inspect.isclass(expected):
             if not isinstance(actual, expected):
