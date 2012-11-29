@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='mockingbird',
+    name='hubmockingbird',
     version='1.1',
     description='Simple but fully featured stubs and mocks for unittests',
     author='Patrick Fitzsimmons',
