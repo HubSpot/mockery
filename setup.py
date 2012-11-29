@@ -9,7 +9,7 @@ setup(
     url=' http://hubspot.com/',
     packages=find_packages(),
     install_requires=[
-
+        "nose==1.1.2"
         ],
     platforms=["any"],
 )
