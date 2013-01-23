@@ -1,4 +1,4 @@
-mocking_bird
+Mockery
 ============
 
 A python mocking library for unittests
