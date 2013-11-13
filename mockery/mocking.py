@@ -10,7 +10,7 @@ import inspect
 import sys
 
 
-class MockingBirdMixin(object):
+class MockeryMixin(object):
     '''
     A mixin that you can inherit from in your TestCase to add support
     for mocking methods and objects
@@ -329,3 +329,21 @@ class SimpleMockObject(object):
     __metaclass__ = MockObjectMetaClass
     def __init__(self, *args, **kwargs):
         self.__dict__.update(kwargs)    
+
+
+def ok_(truthy, msg=''):
+    '''
+    An assert with extra error messaging
+    '''
+    if not truthy:
+        obj_str = u'<' + unicode(truthy)[:20] + u'>'
+        sys.stderr.write('Object %s is not truthy. %s\n' % (obj_str, msg))
+    assert truthy, msg
+
+def eq_(a, b, msg=''):
+    '''
+    An assert with extra error messaging to make it easy to compare the objects    
+    '''
+    if a != b:
+        sys.stderr("Assert Equality Error:\nA: %s\nB: %s\n%s" % (a, b, msg))
+    assert a == b, msg

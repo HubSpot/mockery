@@ -11,9 +11,9 @@ import difflib
 from unittest import TestCase
 import urllib2
 
-from mocking_bird import MockingBirdMixin
+from mockery import MockeryMixin
 
-class MyCase(TestCase, MockingBirdMixin):
+class MyCase(TestCase, MockeryMixin):
 
     def test_stuff(self):
         # Stub out urlopen, all calls to urlopen will be validated against the original signature
@@ -39,5 +39,5 @@ class MyCase(TestCase, MockingBirdMixin):
 
 ```
 
-There are more features of mocking_bird, for complete usage, read through the unittests
+There are more features of mockery, for complete usage, read through the unittests
 
