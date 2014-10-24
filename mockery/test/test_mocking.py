@@ -5,9 +5,9 @@ from unittest import TestCase
 import urllib2
 import urlparse
 
-from ..mocking import MockingBirdMixin, LaxObject, IgnoreArg
+from ..mocking import MockeryMixin, LaxObject, IgnoreArg
 
-class MockingCase(TestCase, MockingBirdMixin):
+class MockingCase(TestCase, MockeryMixin):
     def test_basic_stubs(self):
         # Most basic usage, stub out the method, each call with return a generic mock object,
         # each call is validated against the original method signature
